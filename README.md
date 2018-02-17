@@ -51,6 +51,37 @@ c = C.new(a: D.new)
 c.call # Prints <D...> and <B...>
 ```
 
+You can also specify default values:
+
+```ruby
+class A
+end
+class B
+  attr_accessor :num
+
+  def initialize(num)
+    self.num = num
+  end
+end
+
+class C
+  include Fried::Dependency::Schema
+
+  dependency :a, A, -> { 123 }
+  # It optionally accepts `type` or `type` and `obj`.
+  # - `type` is the class of the dependency (B in this case)
+  # - `obj` is the instance being initialized (C.new in this case)
+  dependency :b, B, ->(type, obj) { type.new(obj.a) }
+
+  def call
+    puts b.num.to_s
+  end
+end
+
+c = C.new
+c.call # Prints 123
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
