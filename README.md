@@ -33,7 +33,7 @@ class D
 end
 
 class C
-  include Fried::Dependency::Loose
+  include Fried::Dependency::Schema
 
   dependency :a, A
   dependency :b, B
@@ -47,42 +47,8 @@ end
 c = C.new
 c.call # Prints <A...> and  <B...>
 
-# No check is performed on the type with `Loose`
 c = C.new(a: D.new)
 c.call # Prints <D...> and <B...>
-```
-
-Define **strict** object dependencies
-
-```ruby
-class A
-  def foo
-  end
-end
-
-class B
-end
-
-class D
-end
-
-class C
-  include Fried::Dependency::Strict
-
-  dependency :a, A
-  dependency :b, B
-
-  def call
-    puts a.inspect
-    puts b.inspect
-  end
-end
-
-c = C.new
-c.call # Prints <A...> and  <B...>
-
-# Passed dependencies must match interface (`InterfaceOf` of fried-typings)
-c = C.new(a: D.new) # raises TypeError
 ```
 
 ## Development

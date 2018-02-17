@@ -1,6 +1,5 @@
 require "fried/dependency/version"
-require "fried/dependency/loose"
-require "fried/dependency/strict"
+require "fried/dependency/schema"
 
 module Fried
   module Dependency

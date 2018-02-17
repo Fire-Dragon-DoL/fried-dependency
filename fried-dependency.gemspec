@@ -26,5 +26,4 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "fried-core"
   spec.add_runtime_dependency "fried-call"
-  spec.add_runtime_dependency "fried-typings"
 end
