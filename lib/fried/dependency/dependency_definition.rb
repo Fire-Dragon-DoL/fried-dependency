@@ -26,8 +26,18 @@ module Fried::Dependency
     # `type#new`
     # @param obj [Object] instance being initialized with this dependency
     def extract_default(obj)
-      return default.(type, obj) unless default.nil?
-      type.new
+      default_with_arity(obj)
+    end
+
+    private
+
+    def default_with_arity(obj)
+      case default.arity
+      when 0 then default.()
+      when 1 then default.(type)
+      else
+        default.(type, obj)
+      end
     end
   end
 end

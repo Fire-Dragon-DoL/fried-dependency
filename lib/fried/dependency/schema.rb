@@ -21,23 +21,24 @@ module Fried::Dependency
     end
 
     module ClassMethods
-      DefaultInit = ->(type, _) { type.new }
+      DefaultInit = ->(type) { type.new }
 
       # Defines a dependency
       # @param name [Symbol] defines a public attr_accessor using given Symbol
       # @param klass [Class] defines the class to use in case the dependency is
       #   not provided in `initialize`. When it's not provided, the default
       #   value of the dependency will be `klass.new`
-      # @yield [Class, Object] accepts the class of the dependency and the
-      #   instance being initialized. The returned value is used as default
-      #   value when the dependency is not passed in the initializer.
-      #   This block is optional, in which case the default value will just be
-      #   `-> { |klass| klass.new }`
+      # @param default [Proc] lambda which optionally accepts `type` and `obj`,
+      #   which are the class of the dependency and the object being
+      #   initialized. The returned value is used as default value when the
+      #   dependency is not passed in the initializer.
+      #   This lambda is optional, in which case the default value will just be
+      #   `->(type) { type.new }`
       # @return [Symbol] the value passed as `name`
-      def dependency(name, klass, &default)
+      def dependency(name, klass, default = DefaultInit)
         ns = ::Fried::Dependency
         definition = ns::CreateDefinitionIfMissing.(self)
-        dep = ns::DependencyDefinition.new(name, klass, default || DefaultInit)
+        dep = ns::DependencyDefinition.new(name, klass, default)
         definition.add_dependency(dep)
         ns::DefineMethods.(dep, self)
       end
