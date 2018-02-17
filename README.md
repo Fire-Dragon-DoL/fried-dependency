@@ -94,4 +94,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/Fire-D
 
 [test-badge]: https://travis-ci.org/Fire-Dragon-DoL/fried-dependency.svg?branch=master
 [test-link]: https://travis-ci.org/Fire-Dragon-DoL/fried-dependency
-[fried-typings-link]: https://github.com/Fire-Dragon-DoL/fried-dependency
