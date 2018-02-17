@@ -24,8 +24,9 @@ module Fried::Dependency
 
     # Extracts content of {#default} if present, otherwise returns the value of
     # `type#new`
-    def extract_default
-      return default.() unless default.nil?
+    # @param obj [Object] instance being initialized with this dependency
+    def extract_default(obj)
+      return default.(type, obj) unless default.nil?
       type.new
     end
   end

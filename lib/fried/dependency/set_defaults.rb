@@ -18,16 +18,16 @@ module Fried::Dependency
     # @return [void]
     def call(obj, schema, deps)
       schema.each_dependency do |definition|
-        value = pick_value(deps, definition)
+        value = pick_value(obj, deps, definition)
         obj.send(definition.writer, value)
       end
     end
 
     private
 
-    def pick_value(deps, definition)
+    def pick_value(obj, deps, definition)
       return deps[definition.name] if deps.has_key?(definition.name)
-      definition.extract_default
+      definition.extract_default(obj)
     end
   end
 end
