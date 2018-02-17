@@ -1,4 +1,4 @@
-# Fried::Dependency
+# Fried::Dependency [![Build Status][test-badge]][test-link]
 
 Easily define object dependencies and inject them
 
@@ -60,3 +60,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/Fire-Dragon-DoL/fried-dependency.
+
+[test-badge]: https://travis-ci.org/Fire-Dragon-DoL/fried-dependency.svg?branch=master
+[test-link]: https://travis-ci.org/Fire-Dragon-DoL/fried-dependency
+[fried-typings-link]: https://github.com/Fire-Dragon-DoL/fried-dependency
