@@ -1,4 +1,8 @@
 require "fried/core"
+require "fried/dependency/create_definition_if_missing"
+require "fried/dependency/set_defaults"
+require "fried/dependency/define_methods"
+require "fried/dependency/dependency_definition"
 
 module Fried::Dependency
   # Provides {.dependency} to define object dependencies. It automatically
@@ -10,8 +14,9 @@ module Fried::Dependency
       # @param deps [Hash{Symbol => Object}] dependencies to overwrite during
       #   initialization
       def initialize(**deps)
-        definition = CreateDefinitionIfMissing.(self.class)
-        SetDefaults.(self, definition, deps)
+        ns = ::Fried::Dependency
+        definition = ns::CreateDefinitionIfMissing.(self.class)
+        ns::SetDefaults.(self, definition, deps)
       end
     end
 
@@ -30,10 +35,11 @@ module Fried::Dependency
       #   `-> { |klass| klass.new }`
       # @return [Symbol] the value passed as `name`
       def dependency(name, klass, &default)
-        definition = CreateDefinitionIfMissing.(self)
-        dep = DependencyDefinition.new(name, klass, default || DefaultInit)
+        ns = ::Fried::Dependency
+        definition = ns::CreateDefinitionIfMissing.(self)
+        dep = ns::DependencyDefinition.new(name, klass, default || DefaultInit)
         definition.add_dependency(dep)
-        DefineMethods.(dep, self)
+        ns::DefineMethods.(dep, self)
       end
     end
 

@@ -1,4 +1,4 @@
-require "fried/dependency"
+require "fried/core"
 
 module Fried::Dependency
   # Value-type holding definition of dependency
